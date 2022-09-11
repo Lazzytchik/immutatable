@@ -49,9 +49,33 @@ class MoneyExpression implements FloatInterface, StringInterface
      *
      * @return MoneyExpression
      */
-    #[Pure] public function subtract(FloatInterface $value): MoneyExpression
+    public function subtract(FloatInterface $value): MoneyExpression
     {
         return new static($this, $value, new MoneySubtractAction());
+    }
+
+    /**
+     * Multiply Money from a chain
+     *
+     * @param FloatInterface $value
+     *
+     * @return MoneyExpression
+     */
+    public function multiply(FloatInterface $value): MoneyExpression
+    {
+        return new static($this, $value, new MoneyMultiplyAction());
+    }
+
+    /**
+     * Divide Money from a chain
+     *
+     * @param FloatInterface $value
+     *
+     * @return MoneyExpression
+     */
+    public function divide(FloatInterface $value): MoneyExpression
+    {
+        return new static($this, $value, new MoneyDivideAction());
     }
 
     public function asFloat(): float

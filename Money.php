@@ -35,6 +35,30 @@ class Money implements FloatInterface, StringInterface {
     }
 
     /**
+     * Multiply current amount of money
+     *
+     * @param FloatInterface $value
+     *
+     * @return MoneyExpression
+     */
+    public function multiply(FloatInterface $value): MoneyExpression
+    {
+        return MoneyExpression::create($this, $value, new MoneyMultiplyAction());
+    }
+
+    /**
+     * Divide the current Money.
+     *
+     * @param FloatInterface $value
+     *
+     * @return MoneyExpression
+     */
+    public function divide(FloatInterface $value): MoneyExpression
+    {
+        return MoneyExpression::create($this, $value, new MoneyDivideAction());
+    }
+
+    /**
      * Subtract Money from a chain
      *
      * @param FloatInterface $value
