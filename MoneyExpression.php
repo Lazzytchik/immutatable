@@ -2,7 +2,7 @@
 
 use JetBrains\PhpStorm\Pure;
 
-class MoneyExpression implements FloatInterface
+class MoneyExpression implements FloatInterface, StringInterface
 {
     protected FloatInterface $_stock;
     protected FloatInterface $_change;
@@ -15,16 +15,40 @@ class MoneyExpression implements FloatInterface
         $this->_action = $action;
     }
 
+    /**
+     * Creates an expression instance.
+     *
+     * @param FloatInterface $stock
+     * @param FloatInterface $change
+     *
+     * @param MoneyAction $action
+     *
+     * @return MoneyExpression
+     */
     #[Pure] public static function create(FloatInterface $stock, FloatInterface $change, MoneyAction $action): \MoneyExpression
     {
         return new static($stock, $change, $action);
     }
 
+    /**
+     * Adds Money into a chain
+     *
+     * @param FloatInterface $value
+     *
+     * @return MoneyExpression
+     */
     #[Pure] public function add(FloatInterface $value): MoneyExpression
     {
         return new static($this, $value, new MoneyAddAction());
     }
 
+    /**
+     * Subtract Money from a chain
+     *
+     * @param FloatInterface $value
+     *
+     * @return MoneyExpression
+     */
     #[Pure] public function subtract(FloatInterface $value): MoneyExpression
     {
         return new static($this, $value, new MoneySubtractAction());

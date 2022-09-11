@@ -1,9 +1,7 @@
 <?php
 
 
-use JetBrains\PhpStorm\Pure;
-
-class Money implements FloatInterface {
+class Money implements FloatInterface, StringInterface {
 
     private float $_value;
 
@@ -12,17 +10,38 @@ class Money implements FloatInterface {
         $this->_value = $value;
     }
 
-    #[Pure] public static function create($value): \Money
+    /**
+     * Makes Money instance
+     *
+     * @param $value
+     *
+     * @return Money
+     */
+    public static function create($value): \Money
     {
         return new static($value);
     }
 
-    #[Pure] public function add(FloatInterface $value): MoneyExpression
+    /**
+     * Adds Money into a chain
+     *
+     * @param FloatInterface $value
+     *
+     * @return MoneyExpression
+     */
+    public function add(FloatInterface $value): MoneyExpression
     {
         return MoneyExpression::create($this, $value, new MoneyAddAction());
     }
 
-    #[Pure] public function subtract(FloatInterface $value): MoneyExpression
+    /**
+     * Subtract Money from a chain
+     *
+     * @param FloatInterface $value
+     *
+     * @return MoneyExpression
+     */
+    public function subtract(FloatInterface $value): MoneyExpression
     {
         return MoneyExpression::create($this, $value, new MoneySubtractAction());
     }

@@ -1,5 +1,6 @@
 <?php
 
+include 'StringInterface.php';
 include 'FloatInterface.php';
 include 'Money.php';
 include 'MoneyAction.php';
